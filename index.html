@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>MXF Athlete — Coaching by Sean McManus · Clarkson, Perth WA</title>
+  <meta name="description" content="MXF helps athletes and everyday people build stronger bodies, improve performance, lose fat and gain muscle through personalised coaching." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+/* MXF Athlete — landing page */
+:root {
+  --bg: #0a0a0a;
+  --bg-2: #121212;
+  --bg-3: #1a1a1a;
+  --fg: #f4f1ec;
+  --fg-dim: #a3a09a;
+  --fg-mute: #6b6963;
+  --accent: #FFB400;
+  --accent-ink: #0a0a0a;
+  --line: rgba(244,241,236,0.10);
+  --line-strong: rgba(244,241,236,0.22);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400; font-size: 16px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+.display {
+  font-family: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 500; letter-spacing: -0.025em; line-height: 1.02; text-wrap: balance;
+}
+.display em.accent-word { font-style: normal; color: var(--accent); font-weight: 500; }
+.h-mono {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-dim);
+}
+.eyebrow {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent); display: inline-flex; align-items: center; gap: 10px;
+}
+.eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--accent); display: inline-block; }
+
+.wordmark {
+  font-family: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 800; letter-spacing: -0.06em; font-size: 26px; line-height: 1;
+  display: inline-flex; align-items: baseline;
+}
+.wordmark::after { content: "."; color: var(--accent); margin-left: -2px; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; padding: 13px 20px;
+  border-radius: var(--r-pill); font-weight: 600; font-size: 14px; letter-spacing: 0.01em;
+  transition: transform 220ms var(--ease), background 220ms var(--ease), color 220ms var(--ease), box-shadow 220ms var(--ease), border-color 220ms var(--ease);
+  will-change: transform;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover { box-shadow: 0 12px 32px -12px color-mix(in oklch, var(--accent) 55%, transparent); }
+.btn-ghost { background: transparent; color: var(--fg); border: 1px solid var(--line-strong); }
+.btn-ghost:hover { border-color: var(--fg); }
+.btn .arr { display: inline-block; transition: transform 220ms var(--ease); }
+.btn:hover .arr { transform: translateX(4px); }
+.btn-small { padding: 10px 14px; font-size: 13px; }
+
+.container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 22px; }
+section { position: relative; }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 900ms var(--ease), transform 900ms var(--ease); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal-stagger > * {
+  opacity: 0; transform: translateY(18px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+.reveal-stagger.in > * { opacity: 1; transform: translateY(0); }
+
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px;
+  background: var(--accent); width: 0%; z-index: 90; transition: width 80ms linear;
+}
+
+.topnav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 80;
+  display: flex; align-items: center; justify-content: space-between; padding: 14px 22px;
+  transition: background 300ms var(--ease), backdrop-filter 300ms var(--ease), border-color 300ms var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.topnav.scrolled {
+  background: rgba(10,10,10,0.72);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom-color: var(--line);
+}
+.topnav .links { display: none; gap: 28px; font-size: 13px; font-weight: 500; }
+.topnav .links a { color: var(--fg-dim); transition: color 200ms var(--ease); }
+.topnav .links a:hover { color: var(--fg); }
+.topnav .nav-cta {
+  font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px;
+  letter-spacing: 0.14em; text-transform: uppercase; padding: 9px 14px;
+  border: 1px solid var(--accent); color: var(--accent); border-radius: var(--r-pill);
+  transition: background 200ms var(--ease), color 200ms var(--ease);
+}
+.topnav .nav-cta:hover { background: var(--accent); color: var(--accent-ink); }
+@media (min-width: 880px) {
+  .topnav { padding: 18px 32px; }
+  .topnav .links { display: flex; }
+}
+
+.loader {
+  position: fixed; inset: 0; background: var(--bg); z-index: 200;
+  display: grid; place-items: center;
+  transition: opacity 700ms var(--ease), visibility 700ms;
+}
+.loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-inner { display: flex; flex-direction: column; align-items: center; gap: 26px; text-align: center; }
+.stopwatch {
+  font-family: "Archivo", sans-serif; font-weight: 500;
+  font-size: clamp(80px, 18vw, 168px); line-height: 0.95; letter-spacing: -0.04em;
+  color: var(--fg); display: flex; align-items: baseline; gap: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.stopwatch .ms { font-size: 0.42em; color: var(--accent); font-weight: 500; }
+.loader-bar {
+  width: min(70vw, 360px); height: 2px; background: var(--line);
+  position: relative; overflow: hidden; border-radius: var(--r-pill);
+}
+.loader-bar > i { position: absolute; top: 0; left: 0; bottom: 0; width: 0%; background: var(--accent); transition: width 80ms linear; }
+.loader-tick { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.24em; color: var(--fg-mute); text-transform: uppercase; }
+
+.hero {
+  position: relative; min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 100px 22px 36px; overflow: hidden;
+}
+.hero-bg { position: absolute; inset: 0; z-index: 0; }
+.hero-bg::after {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(70% 50% at 20% 100%, rgba(255,180,0,0.10), transparent 60%),
+    linear-gradient(180deg, rgba(10,10,10,0.10) 0%, rgba(10,10,10,0.85) 70%, var(--bg) 100%);
+  z-index: 2;
+}
+.hero-video-slot {
+  position: absolute; inset: 0; background-color: #161614;
+  background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 14px),
+    radial-gradient(60% 50% at 60% 30%, rgba(255,180,0,0.05), transparent 70%);
+  z-index: 1; display: grid; place-items: center;
+}
+.hero-video-slot video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.video-placeholder {
+  position: relative; display: inline-flex; flex-direction: column; align-items: center;
+  gap: 10px; padding: 16px 20px; border: 1px dashed var(--line-strong);
+  border-radius: var(--r-md); color: rgba(244,241,236,0.45);
+  font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.22em;
+  text-transform: uppercase; background: rgba(10,10,10,0.35); backdrop-filter: blur(2px);
+}
+.video-placeholder .play {
+  width: 36px; height: 36px; border-radius: 50%; border: 1px solid currentColor;
+  display: grid; place-items: center;
+}
+.video-placeholder .play::after {
+  content: ""; width: 0; height: 0;
+  border-left: 8px solid currentColor; border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent; margin-left: 2px;
+}
+.hero-grain {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9 0 0 0 0 0.9 0 0 0 0 0.9 0 0 0 0.12 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: 0.4; mix-blend-mode: overlay; z-index: 3; pointer-events: none;
+}
+.hero-inner { position: relative; z-index: 4; display: flex; flex-direction: column; gap: 32px; }
+.hero-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+.hero-meta {
+  display: flex; flex-direction: column; gap: 6px;
+  font-family: "JetBrains Mono", monospace; font-size: 11px;
+  letter-spacing: 0.16em; color: var(--fg-dim); text-transform: uppercase;
+}
+.hero-meta .blink {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+  display: inline-block; animation: blink 1.6s infinite; margin-right: 8px; vertical-align: middle;
+}
+@keyframes blink {
+  0%, 60% { opacity: 1; transform: scale(1); }
+  80%, 100% { opacity: 0.3; transform: scale(0.85); }
+}
+.hero-title { font-size: clamp(44px, 8.4vw, 116px); max-width: 18ch; }
+.hero-title .row { display: block; overflow: hidden; }
+.hero-title .row > span {
+  display: inline-block; transform: translateY(110%);
+  animation: rise 1100ms var(--ease) forwards; animation-delay: var(--d, 0ms);
+}
+@keyframes rise { to { transform: translateY(0); } }
+.hero-bottom { display: flex; flex-direction: column; gap: 22px; }
+.hero-sub { font-size: clamp(15px, 1.5vw, 18px); line-height: 1.55; color: var(--fg-dim); max-width: 540px; }
+.hero-sub strong { color: var(--fg); font-weight: 600; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  border-top: 1px solid var(--line); padding-top: 22px; margin-top: 8px;
+}
+.hero-stats .stat { display: flex; flex-direction: column; gap: 4px; }
+.hero-stats .stat .num {
+  font-family: "Archivo", sans-serif; font-weight: 500;
+  font-size: clamp(28px, 4.8vw, 44px); letter-spacing: -0.03em; line-height: 1; color: var(--fg);
+}
+.hero-stats .stat .num .unit { color: var(--accent); font-size: 0.55em; margin-left: 4px; font-weight: 500; }
+.hero-stats .stat .lbl {
+  font-family: "JetBrains Mono", monospace; font-size: 10px;
+  letter-spacing: 0.16em; color: var(--fg-dim); text-transform: uppercase;
+}
+.scroll-cue {
+  position: absolute; bottom: 18px; right: 22px; z-index: 5; display: none;
+  font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.22em;
+  color: var(--fg-dim); text-transform: uppercase; align-items: center; gap: 10px;
+}
+.scroll-cue .line {
+  width: 1px; height: 56px; background: linear-gradient(180deg, transparent, var(--accent));
+  display: inline-block; animation: cue 2s var(--ease) infinite; transform-origin: top;
+}
+@keyframes cue {
+  0% { transform: scaleY(0); }
+  50% { transform: scaleY(1); }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+@media (min-width: 768px) {
+  .scroll-cue { display: flex; }
+  .hero { padding: 120px 36px 56px; }
+}
+
+.marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 0; overflow: hidden; background: var(--bg); }
+.marquee-track { display: flex; gap: 40px; white-space: nowrap; animation: scroll 32s linear infinite; width: max-content; }
+.marquee-track span {
+  font-family: "Archivo", sans-serif; font-weight: 500; font-size: 20px;
+  letter-spacing: -0.01em; color: var(--fg); display: inline-flex; align-items: center; gap: 40px;
+}
+.marquee-track .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; }
+@keyframes scroll { to { transform: translateX(-50%); } }
+
+.section { padding: 80px 0; }
+@media (min-width: 880px) { .section { padding: 112px 0; } }
+.section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 22px; margin-bottom: 44px; flex-wrap: wrap; }
+.section-title { font-size: clamp(32px, 5.4vw, 64px); max-width: 16ch; }
+.section-title .accent { color: var(--accent); }
+.tag-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  margin-bottom: 44px; font-family: "JetBrains Mono", monospace;
+  font-size: 11px; letter-spacing: 0.2em; color: var(--fg-dim); text-transform: uppercase;
+}
+
+.about-grid { display: grid; gap: 28px; grid-template-columns: 1fr; }
+@media (min-width: 880px) { .about-grid { grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: start; } }
+.about-carousel {
+  position: relative; aspect-ratio: 4 / 5; background: var(--bg-3);
+  background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 14px);
+  overflow: hidden; border: 1px solid var(--line); border-radius: var(--r-lg);
+}
+.about-carousel .slide {
+  position: absolute; inset: 0; opacity: 0; transform: scale(1.03);
+  transition: opacity 700ms var(--ease), transform 900ms var(--ease); pointer-events: none;
+}
+.about-carousel .slide.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+.about-carousel .slide .img-slot { width: 100%; height: 100%; display: block; }
+.about-carousel .ac-badge {
+  position: absolute; top: 14px; left: 14px; background: var(--accent);
+  color: var(--accent-ink); font-family: "JetBrains Mono", monospace;
+  font-size: 10px; letter-spacing: 0.2em; padding: 7px 11px;
+  text-transform: uppercase; border-radius: var(--r-pill); z-index: 3;
+}
+.about-carousel .ac-caption {
+  position: absolute; left: 14px; bottom: 14px; right: 70px; z-index: 3;
+  display: flex; flex-direction: column; gap: 4px; pointer-events: none;
+}
+.about-carousel .ac-caption .what {
+  font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.2em;
+  color: rgba(244,241,236,0.85); text-transform: uppercase;
+  background: rgba(10,10,10,0.55); backdrop-filter: blur(6px);
+  padding: 6px 10px; border-radius: var(--r-pill); align-self: flex-start;
+}
+.about-carousel .ac-caption .yr { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; padding-left: 10px; }
+.about-carousel .ac-nav { position: absolute; right: 14px; bottom: 14px; display: flex; gap: 8px; z-index: 3; }
+.about-carousel .ac-btn {
+  width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(244,241,236,0.3);
+  background: rgba(10,10,10,0.55); backdrop-filter: blur(6px); color: var(--fg);
+  display: grid; place-items: center;
+  transition: background 200ms var(--ease), color 200ms var(--ease), border-color 200ms var(--ease);
+}
+.about-carousel .ac-btn:hover { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.about-carousel .ac-dots { position: absolute; top: 18px; right: 14px; display: flex; gap: 6px; z-index: 3; }
+.about-carousel .ac-dots button {
+  width: 22px; height: 3px; border-radius: 2px; background: rgba(244,241,236,0.22);
+  transition: background 240ms var(--ease), width 240ms var(--ease); position: relative; overflow: hidden;
+}
+.about-carousel .ac-dots button.active { background: rgba(244,241,236,0.18); width: 32px; }
+.about-carousel .ac-dots button.active::after {
+  content: ""; position: absolute; inset: 0; background: var(--accent);
+  transform-origin: left; animation: dot-fill 5000ms linear forwards;
+}
+@keyframes dot-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.about-body { display: flex; flex-direction: column; gap: 24px; }
+.about-name { font-size: clamp(32px, 5.2vw, 60px); }
+.about-name .accent { color: var(--accent); }
+.about-bio { color: var(--fg-dim); font-size: 17px; line-height: 1.6; }
+.about-bio strong { color: var(--fg); font-weight: 600; }
+.about-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--line); }
+.about-facts .fact { padding: 20px 18px 20px 0; border-bottom: 1px solid var(--line); }
+.about-facts .fact:nth-child(odd) { padding-right: 18px; border-right: 1px solid var(--line); padding-left: 0; }
+.about-facts .fact:nth-child(even) { padding-left: 22px; padding-right: 0; }
+.about-facts .fact .num { font-family: "Archivo", sans-serif; font-weight: 500; font-size: clamp(30px, 5.2vw, 44px); letter-spacing: -0.03em; line-height: 1; color: var(--fg); }
+.about-facts .fact .num .unit { color: var(--accent); font-size: 0.5em; margin-left: 4px; }
+.about-facts .fact .lbl { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.16em; color: var(--fg-dim); text-transform: uppercase; margin-top: 8px; }
+
+/* image slot placeholder */
+.img-slot {
+  display: block; background-color: #161614;
+  background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 14px);
+  position: relative; overflow: hidden;
+}
+.img-slot .ph {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.18em;
+  color: rgba(244,241,236,0.22); text-transform: uppercase; text-align: center; padding: 12px;
+}
+
+.services { background: var(--bg); position: relative; }
+.services .container { position: relative; z-index: 1; }
+.pricing-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 880px) { .pricing-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+.tier {
+  border: 1px solid var(--line); background: var(--bg-2); border-radius: var(--r-xl);
+  padding: 28px 24px 24px; display: flex; flex-direction: column; gap: 20px; position: relative;
+  transition: transform 360ms var(--ease), border-color 360ms var(--ease), background 360ms var(--ease);
+}
+.tier:hover { transform: translateY(-4px); border-color: var(--line-strong); }
+.tier.featured { background: var(--bg); border-color: var(--accent); }
+.tier.featured::before {
+  content: "Most popular"; position: absolute; top: 0; left: 24px; transform: translateY(-50%);
+  background: var(--accent); color: var(--accent-ink); font-family: "JetBrains Mono", monospace;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; padding: 5px 11px; border-radius: var(--r-pill);
+}
+.tier-head { display: flex; flex-direction: column; gap: 14px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+.tier-tag { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--fg-dim); text-transform: uppercase; }
+.tier.featured .tier-tag { color: var(--accent); }
+.tier-name { font-family: "Archivo", sans-serif; font-weight: 500; font-size: 24px; letter-spacing: -0.02em; line-height: 1.15; }
+.tier-price { display: flex; align-items: baseline; gap: 6px; }
+.tier-price .amount { font-family: "Archivo", sans-serif; font-weight: 500; font-size: 56px; line-height: 0.95; letter-spacing: -0.04em; }
+.tier-price .per { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.16em; color: var(--fg-dim); text-transform: uppercase; }
+.tier-blurb { color: var(--fg-dim); font-size: 14.5px; line-height: 1.55; }
+.tier-features { display: flex; flex-direction: column; gap: 10px; font-size: 14.5px; flex: 1; }
+.tier-features .feat { display: flex; align-items: flex-start; gap: 12px; color: var(--fg); line-height: 1.45; }
+.tier-features .feat .tick {
+  flex-shrink: 0; width: 16px; height: 16px; display: inline-grid; place-items: center;
+  border-radius: 50%; background: var(--accent); color: var(--accent-ink);
+  font-size: 10px; font-weight: 800; margin-top: 3px;
+}
+.tier-features .feat-group {
+  font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.2em;
+  color: var(--fg-mute); text-transform: uppercase; margin-top: 8px;
+  padding-top: 12px; border-top: 1px dashed var(--line);
+}
+.tier-cta { margin-top: 4px; }
+
+.pricing-table { border: 1px solid var(--line); background: var(--bg-2); border-radius: var(--r-lg); overflow: hidden; }
+.pricing-table .row { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); align-items: center; border-bottom: 1px solid var(--line); }
+.pricing-table .row:last-child { border-bottom: 0; }
+.pricing-table .row > div { padding: 18px 16px; font-size: 14px; }
+.pricing-table .row > div + div { border-left: 1px solid var(--line); text-align: center; }
+.pricing-table .header { background: var(--bg-3); }
+.pricing-table .header .tier-name { font-size: 15px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.15; }
+.pricing-table .header .tier-price .amount { font-size: 28px; }
+.pricing-table .header .tier-price .per { font-size: 10px; }
+.pricing-table .header > div { padding: 18px 16px; }
+.pricing-table .featured-col { background: rgba(255,180,0,0.04); position: relative; }
+.pricing-table .featured-col::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); }
+.pricing-table .feat-row .label { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--fg-dim); text-transform: uppercase; }
+.pricing-table .cell-tick { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-size: 11px; font-weight: 800; }
+.pricing-table .cell-no { color: var(--fg-mute); }
+.pricing-table .footer-row > div { padding: 20px 16px; }
+.pricing-table .footer-row .btn { width: 100%; justify-content: center; }
+@media (max-width: 879px) { .pricing-table { display: none; } }
+.layout-toggle { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: var(--r-pill); overflow: hidden; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; }
+.layout-toggle button { padding: 10px 14px; color: var(--fg-dim); transition: background 200ms var(--ease), color 200ms var(--ease); }
+.layout-toggle button.active { background: var(--accent); color: var(--accent-ink); }
+@media (max-width: 879px) { .layout-toggle button[data-layout="table"] { display: none; } }
+
+.transformations { background: var(--bg-2); }
+.transformation-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 720px) { .transformation-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+@media (min-width: 1080px) { .transformation-grid { grid-template-columns: repeat(3, 1fr); } }
+.t-card { background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; display: flex; flex-direction: column; transition: transform 360ms var(--ease), border-color 360ms var(--ease); }
+.t-card:hover { transform: translateY(-3px); border-color: var(--line-strong); }
+.t-card .ba { display: grid; grid-template-columns: 1fr 1fr; position: relative; aspect-ratio: 4 / 3; }
+.t-card .ba::after { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: var(--line-strong); }
+.t-card .ba .slot { position: relative; background-color: #161614; background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 12px); display: grid; place-items: center; overflow: hidden; }
+.t-card .ba .corner-tag { position: absolute; top: 12px; left: 12px; font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--fg-dim); text-transform: uppercase; background: rgba(10,10,10,0.65); padding: 4px 8px; border-radius: var(--r-pill); z-index: 1; }
+.t-card .meta { padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+.t-card .meta .who { font-weight: 600; font-size: 15px; }
+.t-card .meta .what { color: var(--fg-dim); font-size: 14px; line-height: 1.5; }
+.t-card .meta .num { margin-top: 4px; font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; }
+.slot-ph { font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: 0.18em; color: rgba(244,241,236,0.2); text-transform: uppercase; padding: 8px; text-align: center; }
+
+.video-row { position: relative; }
+.video-track { display: grid; grid-auto-flow: column; grid-auto-columns: 78%; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.video-track::-webkit-scrollbar { display: none; }
+@media (min-width: 720px) { .video-track { grid-auto-columns: 38%; } }
+@media (min-width: 1100px) { .video-track { grid-auto-columns: 25%; gap: 20px; } }
+.v-card { scroll-snap-align: start; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line); position: relative; aspect-ratio: 9 / 16; background-color: #161614; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 14px); display: grid; place-items: center; transition: transform 360ms var(--ease), border-color 360ms var(--ease); }
+.v-card:hover { transform: translateY(-3px); border-color: var(--line-strong); }
+.v-card .v-meta { position: absolute; left: 12px; right: 12px; bottom: 12px; padding: 10px 12px; background: rgba(10,10,10,0.55); backdrop-filter: blur(6px); border-radius: var(--r-md); display: flex; flex-direction: column; gap: 4px; z-index: 2; pointer-events: none; }
+.v-card .v-meta .who { font-weight: 600; font-size: 13px; }
+.v-card .v-meta .what { font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: 0.18em; color: var(--fg-dim); text-transform: uppercase; }
+.v-card .v-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 56px; height: 56px; border-radius: 50%; background: rgba(10,10,10,0.6); backdrop-filter: blur(6px); border: 1px solid rgba(244,241,236,0.4); display: grid; place-items: center; z-index: 2; pointer-events: none; }
+.v-card .v-play::after { content: ""; width: 0; height: 0; border-left: 14px solid var(--fg); border-top: 9px solid transparent; border-bottom: 9px solid transparent; margin-left: 4px; }
+.video-row-foot { margin-top: 14px; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--fg-mute); text-transform: uppercase; }
+
+.testimonials { background: var(--bg); }
+.testimonial-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 880px) { .testimonial-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+.testimonial { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 26px 24px; display: flex; flex-direction: column; gap: 16px; transition: transform 360ms var(--ease), border-color 360ms var(--ease); }
+.testimonial:hover { transform: translateY(-3px); border-color: var(--line-strong); }
+.testimonial .quote { font-size: 16px; line-height: 1.6; color: var(--fg); }
+.testimonial .stars { color: var(--accent); letter-spacing: 4px; font-size: 13px; }
+.testimonial .author { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+.testimonial .avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 700; font-size: 13px; letter-spacing: 0.02em; }
+.testimonial .author-name { font-weight: 600; font-size: 14px; }
+.testimonial .author-tag { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.16em; color: var(--fg-dim); text-transform: uppercase; }
+.testimonial-slider .track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 16px; padding-bottom: 8px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.testimonial-slider .track::-webkit-scrollbar { display: none; }
+.testimonial-slider .testimonial { flex: 0 0 90%; scroll-snap-align: center; }
+@media (min-width: 880px) { .testimonial-slider .testimonial { flex: 0 0 48%; } }
+.testimonial-wall { display: grid; grid-template-columns: 1fr; gap: 18px; }
+.testimonial-wall .lead { border: 1px solid var(--line); background: var(--bg-2); border-radius: var(--r-lg); padding: 34px 28px; font-family: "Archivo", sans-serif; font-weight: 500; font-size: clamp(26px, 4vw, 38px); line-height: 1.12; letter-spacing: -0.02em; }
+.testimonial-wall .lead .accent { color: var(--accent); }
+.testimonial-wall .lead .who { display: block; margin-top: 18px; font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.2em; color: var(--fg-dim); text-transform: uppercase; }
+@media (min-width: 880px) { .testimonial-wall { grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: auto auto; } .testimonial-wall .lead { grid-column: span 1; grid-row: span 2; } }
+
+.faq-list { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 22px 0; text-align: left; font-size: clamp(17px, 1.9vw, 21px); font-weight: 500; letter-spacing: -0.01em; transition: color 200ms var(--ease); }
+.faq-q:hover { color: var(--accent); }
+.faq-q .plus { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line-strong); display: grid; place-items: center; transition: background 220ms var(--ease), color 220ms var(--ease), transform 220ms var(--ease), border-color 220ms var(--ease); position: relative; }
+.faq-q .plus::before, .faq-q .plus::after { content: ""; position: absolute; background: currentColor; }
+.faq-q .plus::before { width: 12px; height: 1.5px; }
+.faq-q .plus::after { width: 1.5px; height: 12px; transition: transform 220ms var(--ease); }
+.faq-item.open .plus { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.faq-item.open .plus::after { transform: rotate(90deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 380ms var(--ease), padding 380ms var(--ease), opacity 380ms var(--ease); opacity: 0; }
+.faq-item.open .faq-a { max-height: 520px; padding: 0 0 24px; opacity: 1; }
+.faq-a p { margin: 0; color: var(--fg-dim); font-size: 16px; line-height: 1.65; max-width: 70ch; }
+
+.cta-banner { position: relative; padding: 84px 22px; text-align: center; background: var(--accent); color: var(--accent-ink); overflow: hidden; }
+.cta-banner h2 { font-family: "Archivo", sans-serif; font-weight: 500; font-size: clamp(40px, 7vw, 96px); line-height: 1.0; letter-spacing: -0.035em; margin: 0 0 22px; }
+.cta-banner p { font-size: 16px; margin: 0 auto 26px; max-width: 520px; font-weight: 500; line-height: 1.55; }
+.cta-banner .btn-primary { background: var(--accent-ink); color: var(--accent); }
+.cta-banner .btn-primary:hover { background: #1a1a1a; }
+.cta-banner .corner { position: absolute; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.65; }
+.cta-banner .corner.tl { top: 16px; left: 16px; }
+.cta-banner .corner.tr { top: 16px; right: 16px; }
+.cta-banner .corner.bl { bottom: 16px; left: 16px; }
+.cta-banner .corner.br { bottom: 16px; right: 16px; }
+
+.footer { padding: 60px 22px 26px; border-top: 1px solid var(--line); background: var(--bg); }
+.footer-grid { display: grid; grid-template-columns: 1fr; gap: 32px; max-width: 1280px; margin: 0 auto; }
+@media (min-width: 880px) { .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; gap: 52px; } }
+.footer .wordmark { font-size: 44px; }
+.footer-tag { margin-top: 14px; color: var(--fg-dim); max-width: 38ch; line-height: 1.6; }
+.footer-col h4 { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-dim); margin: 0 0 14px; font-weight: 500; }
+.footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.footer-col a { color: var(--fg); transition: color 200ms var(--ease); }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom { max-width: 1280px; margin: 52px auto 0; padding-top: 22px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.18em; color: var(--fg-mute); text-transform: uppercase; }
+
+.floating-cta { position: fixed; bottom: 20px; right: 20px; z-index: 70; display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: var(--accent-ink); padding: 14px 20px; border-radius: var(--r-pill); font-weight: 700; font-size: 13px; letter-spacing: 0.02em; box-shadow: 0 18px 50px -12px rgba(255,180,0,0.45), 0 0 0 0 color-mix(in oklch, var(--accent) 50%, transparent); animation: pulse-ring 2.4s var(--ease) infinite; transition: transform 240ms var(--ease); opacity: 0; pointer-events: none; transform: translateY(20px) scale(0.92); }
+.floating-cta.visible { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+.floating-cta:hover { transform: translateY(-3px) scale(1.02); }
+.floating-cta .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-ink); animation: blink 1.6s infinite; }
+@keyframes pulse-ring {
+  0% { box-shadow: 0 18px 50px -12px rgba(255,180,0,0.45), 0 0 0 0 rgba(255,180,0,0.5); }
+  70% { box-shadow: 0 18px 50px -12px rgba(255,180,0,0.45), 0 0 0 18px rgba(255,180,0,0); }
+  100% { box-shadow: 0 18px 50px -12px rgba(255,180,0,0.45), 0 0 0 0 rgba(255,180,0,0); }
+}
+
+.scroll-spy { position: fixed; right: 14px; top: 50%; transform: translateY(-50%); z-index: 60; display: none; flex-direction: column; gap: 10px; }
+@media (min-width: 1100px) { .scroll-spy { display: flex; } }
+.scroll-spy a { width: 8px; height: 8px; border-radius: 50%; background: var(--line-strong); transition: background 200ms var(--ease), transform 200ms var(--ease); position: relative; }
+.scroll-spy a:hover { transform: scale(1.3); }
+.scroll-spy a.active { background: var(--accent); transform: scale(1.3); }
+.scroll-spy a span { position: absolute; right: 18px; top: 50%; transform: translateY(-50%) translateX(8px); font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.18em; color: var(--fg-dim); text-transform: uppercase; opacity: 0; pointer-events: none; white-space: nowrap; transition: opacity 200ms var(--ease), transform 200ms var(--ease); }
+.scroll-spy a:hover span, .scroll-spy a.active span { opacity: 1; transform: translateY(-50%) translateX(0); }
+
+@media (max-width: 600px) {
+  .container { padding: 0 18px; }
+  .section { padding: 64px 0; }
+  .floating-cta { bottom: 16px; right: 16px; padding: 13px 16px; font-size: 12px; }
+  .hero-stats { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .hero-stats .stat .num { font-size: 28px; }
+  .tag-row { font-size: 9px; }
+  .topnav { padding: 12px 18px; }
+  .wordmark { font-size: 22px; }
+}
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel">
+
+/* ── Loader ── */
+function StopwatchLoader({ onDone, duration = 2200 }) {
+  const [done, setDone] = React.useState(false);
+  const [time, setTime] = React.useState({ s: 0, ms: 0 });
+  const [progress, setProgress] = React.useState(0);
+  React.useEffect(() => {
+    const start = performance.now();
+    let raf;
+    const tick = (now) => {
+      const elapsed = now - start;
+      const ratio = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - ratio, 2.2);
+      const totalMs = Math.floor(eased * 3000);
+      setTime({ s: Math.floor(totalMs / 1000), ms: totalMs % 1000 });
+      setProgress(Math.floor(eased * 100));
+      if (ratio < 1) { raf = requestAnimationFrame(tick); }
+      else { setTimeout(() => { setDone(true); setTimeout(() => onDone && onDone(), 700); }, 380); }
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+  const pad2 = (n) => String(n).padStart(2, "0");
+  const pad3 = (n) => String(n).padStart(3, "0");
+  return (
+    <div className={"loader" + (done ? " done" : "")} aria-hidden={done}>
+      <div className="loader-inner">
+        <div className="h-mono loader-tick">SYSTEM/INIT • PERTH WA</div>
+        <div className="stopwatch" role="status" aria-label="Loading">
+          <span>00:{pad2(time.s)}</span>
+          <span className="ms">.{pad3(time.ms).slice(0, 2)}</span>
+        </div>
+        <div className="loader-bar"><i style={{ width: progress + "%" }} /></div>
+        <div className="loader-tick">PRELOAD {progress}%</div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Image placeholder ── */
+function ImgSlot({ placeholder, style, className }) {
+  return (
+    <div className={"img-slot" + (className ? " " + className : "")} style={style}>
+      <div className="ph">{placeholder}</div>
+    </div>
+  );
+}
+
+/* ── Hero ── */
+const HERO_VARIANTS = [
+  {
+    title: [[{ text: "Coaching built " }],[{ text: "around " }, { text: "your", accent: true }, { text: " week." }]],
+    sub: [{ text: "I'm Sean. I run MXF out of Clarkson, Perth. " }, { text: "Personalised training, weekly check-ins, and an app that keeps the plan honest.", bold: true }],
+  },
+  {
+    title: [[{ text: "Built to peak when " }],[{ text: "the " }, { text: "season", accent: true }, { text: " starts." }]],
+    sub: [{ text: "Off-season programming, in-season maintenance, conditioning that holds up at minute 85. " }, { text: "19 years on the pitch tells you what works.", bold: true }],
+  },
+  {
+    title: [[{ text: "12 weeks." }],[{ text: "A different " }, { text: "you", accent: true }, { text: "." }]],
+    sub: [{ text: "Personalised training and nutrition for fat loss or muscle gain. " }, { text: "Weekly check-ins. Honest answers when you ask.", bold: true }],
+  },
+];
+
+function Hero({ heroCopy, onBook }) {
+  const titleParts = heroCopy.title;
+  return (
+    <section id="hero" className="hero">
+      <div className="hero-bg">
+        <div className="hero-video-slot">
+          <div className="video-placeholder">
+            <span className="play"></span>
+            <span>hero video · 1920×1080 · loop</span>
+            <span style={{ opacity: 0.6 }}>training b-roll, slow motion</span>
+          </div>
+        </div>
+        <div className="hero-grain"></div>
+      </div>
+      <div className="hero-inner container">
+        <div className="hero-top">
+          <div className="hero-meta">
+            <div><span className="blink"></span>Coaching now · Clarkson · Perth WA</div>
+            <div style={{ color: "var(--fg-mute)" }}>Est. 2018 · @mxf.athlete</div>
+          </div>
+          <div className="hero-meta" style={{ textAlign: "right" }}>
+            <div>1:1 · Online · Group</div>
+            <div style={{ color: "var(--fg-mute)" }}>Athletes and everyday clients</div>
+          </div>
+        </div>
+        <h1 className="display hero-title">
+          {titleParts.map((row, i) => (
+            <span key={i} className="row">
+              <span style={{ "--d": i * 140 + "ms" }}>
+                {row.map((seg, j) =>
+                  seg.accent
+                    ? <em key={j} className="accent-word">{seg.text}</em>
+                    : <React.Fragment key={j}>{seg.text}</React.Fragment>
+                )}
+              </span>
+            </span>
+          ))}
+        </h1>
+        <div className="hero-bottom">
+          <p className="hero-sub">
+            {heroCopy.sub.map((part, i) =>
+              part.bold
+                ? <strong key={i}>{part.text}</strong>
+                : <React.Fragment key={i}>{part.text}</React.Fragment>
+            )}
+          </p>
+          <div className="hero-actions">
+            <button className="btn btn-primary" onClick={onBook}>Book a discovery call <span className="arr">→</span></button>
+            <a className="btn btn-ghost" href="#services">See coaching tiers</a>
+          </div>
+          <div className="hero-stats">
+            <div className="stat"><div className="num">12<span className="unit">yr</span></div><div className="lbl">Pro football, Scotland</div></div>
+            <div className="stat"><div className="num">7<span className="unit">yr</span></div><div className="lbl">Semi-pro, Perth WA</div></div>
+            <div className="stat"><div className="num">100<span className="unit">+</span></div><div className="lbl">Clients coached</div></div>
+          </div>
+        </div>
+      </div>
+      <div className="scroll-cue"><span>Scroll</span><span className="line"></span></div>
+    </section>
+  );
+}
+
+/* ── Marquee ── */
+function Marquee() {
+  const items = ["Football performance","Body transformations","Online coaching","Strength & conditioning","Hyrox prep","Muscle gain","Fat loss","1:1 PT"];
+  const loop = [...items, ...items];
+  return (
+    <div className="marquee" aria-hidden="true">
+      <div className="marquee-track">
+        {loop.map((t, i) => <span key={i}>{t}<span className="dot"></span></span>)}
+      </div>
+    </div>
+  );
+}
+
+/* ── About carousel ── */
+const ABOUT_SLIDES = [
+  { id: "portrait",   what: "Coach portrait",       yr: "Now · MXF",         placeholder: "Drop a portrait of Sean · 4:5" },
+  { id: "pro-action", what: "In play · Scotland",   yr: "Pro · 2008–2019",   placeholder: "Match action · pro era" },
+  { id: "kit",        what: "Team kit",             yr: "Pro era",           placeholder: "Kit / squad photo" },
+  { id: "wa",         what: "Western Australia",    yr: "Semi-pro · 2019+",  placeholder: "Representing WA" },
+  { id: "coaching",   what: "On the floor · MXF",  yr: "Clarkson, Perth",   placeholder: "Coaching session" },
+];
+
+function AboutCarousel() {
+  const [idx, setIdx] = React.useState(0);
+  const [paused, setPaused] = React.useState(false);
+  React.useEffect(() => {
+    if (paused) return;
+    const id = setTimeout(() => setIdx((v) => (v + 1) % ABOUT_SLIDES.length), 5000);
+    return () => clearTimeout(id);
+  }, [idx, paused]);
+  const go = (n) => setIdx((n + ABOUT_SLIDES.length) % ABOUT_SLIDES.length);
+  const active = ABOUT_SLIDES[idx];
+  return (
+    <div className="about-carousel" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+      <span className="ac-badge">Sean McManus</span>
+      {ABOUT_SLIDES.map((s, i) => (
+        <div key={s.id} className={"slide" + (i === idx ? " active" : "")} aria-hidden={i !== idx}>
+          <ImgSlot placeholder={s.placeholder} style={{ width: "100%", height: "100%" }} />
+        </div>
+      ))}
+      <div className="ac-dots">
+        {ABOUT_SLIDES.map((s, i) => (
+          <button key={s.id} className={i === idx ? "active" : ""} onClick={() => go(i)} aria-label={"Photo " + (i+1)} />
+        ))}
+      </div>
+      <div className="ac-caption" key={active.id}>
+        <span className="what">{active.what}</span>
+        <span className="yr">{active.yr}</span>
+      </div>
+      <div className="ac-nav">
+        <button className="ac-btn" onClick={() => go(idx - 1)}>‹</button>
+        <button className="ac-btn" onClick={() => go(idx + 1)}>›</button>
+      </div>
+    </div>
+  );
+}
+
+function About() {
+  return (
+    <section id="about" className="section">
+      <div className="container">
+        <div className="tag-row reveal"><span>[ 02 ] About the coach</span><span>Sean McManus</span></div>
+        <div className="about-grid">
+          <div className="reveal"><AboutCarousel /></div>
+          <div className="about-body reveal">
+            <div className="eyebrow">19 years on the pitch</div>
+            <h2 className="display about-name">Hi, I'm Sean. I coach out of <span className="accent">Clarkson.</span></h2>
+            <p className="about-bio">I played <strong>12 years professional football</strong> in Scotland, then 7 more years semi-pro in Perth representing Western Australia. The standards I held as a pro are the standards I run the gym to.</p>
+            <p className="about-bio">I coach two kinds of people. Athletes preparing for a season, and people who want to lose fat or put on real muscle. Same programming brain, different goal.</p>
+            <div className="about-facts">
+              <div className="fact"><div className="num">12<span className="unit">yr</span></div><div className="lbl">Pro · Scotland</div></div>
+              <div className="fact"><div className="num">7<span className="unit">yr</span></div><div className="lbl">Semi-pro · WA</div></div>
+              <div className="fact"><div className="num">1:1</div><div className="lbl">Personalised plans</div></div>
+              <div className="fact"><div className="num">7<span className="unit">d</span></div><div className="lbl">App + coach support</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Services ── */
+const TIERS = [
+  {
+    id: "group", tag: "Low · Group", name: "Group performance training", price: 50,
+    blurb: "Conditioning and accountability with people training next to you.",
+    features: [{ group: "What you get" },"Group PT sessions in the room","Coach in the session with you","Performance and conditioning focus","Full access to the training environment",{ group: "Good for" },"General fitness with a real standard","Athletes building an off-season base","Fat loss with community around it"],
+    cta: "Join the group",
+  },
+  {
+    id: "online", tag: "Mid · Online", name: "MXF online coaching", price: 125, featured: true,
+    blurb: "Personalised programming and nutrition, run through the MXF Athlete app.",
+    features: [{ group: "What you get" },"Personalised training program","Goal-specific nutrition plan","Weekly shopping list, written for you","Weekly check-ins with Sean","Progress tracking","MXF Athlete app access","Workout and nutrition tracking","Daily habit targets","Direct coach messaging",{ group: "Good for" },"Football athletes in any phase","Muscle gain or fat loss with a real plan","Hyrox prep and S&C","Lifestyle clients chasing a result"],
+    cta: "Start online",
+  },
+  {
+    id: "premium", tag: "High · Premium", name: "MXF premium coaching", price: 160,
+    blurb: "Online coaching plus 2 private PT sessions a week. Coach in the room with you.",
+    features: [{ group: "Everything in online, plus" },"2 private PT sessions every week","Technique coaching at the bar","Gym accountability in person","Program adjustments on the fly","Performance testing",{ group: "Plus the full online stack" },"Nutrition and shopping list","Weekly check-ins","MXF Athlete app access"],
+    cta: "Apply for premium",
+  },
+];
+
+function TierCard({ tier, onBook }) {
+  return (
+    <div className={"tier" + (tier.featured ? " featured" : "")}>
+      <div className="tier-head">
+        <div className="tier-tag">{tier.tag}</div>
+        <div className="tier-name">{tier.name}</div>
+        <div className="tier-price"><span className="amount">${tier.price}</span><span className="per">/week AUD</span></div>
+        <div className="tier-blurb">{tier.blurb}</div>
+      </div>
+      <div className="tier-features">
+        {tier.features.map((f, i) =>
+          typeof f === "object"
+            ? <div key={i} className="feat-group">{f.group}</div>
+            : <div key={i} className="feat"><span className="tick">✓</span><span>{f}</span></div>
+        )}
+      </div>
+      <button className={"btn tier-cta " + (tier.featured ? "btn-primary" : "btn-ghost")} onClick={onBook}>
+        {tier.cta} <span className="arr">→</span>
+      </button>
+    </div>
+  );
+}
+
+function PricingTable({ onBook }) {
+  const rows = [
+    { label: "Group PT sessions", cells: [true, false, false] },
+    { label: "Personalised program", cells: [false, true, true] },
+    { label: "Nutrition plan + shopping list", cells: [false, true, true] },
+    { label: "Weekly check-ins", cells: [false, true, true] },
+    { label: "MXF Athlete app", cells: [false, true, true] },
+    { label: "Habit + workout tracking", cells: [false, true, true] },
+    { label: "Private 1:1 PT sessions", cells: [false, false, "2 / wk"] },
+    { label: "Technique coaching", cells: [false, false, true] },
+    { label: "Performance testing", cells: [false, false, true] },
+    { label: "In-person accountability", cells: [true, false, true] },
+  ];
+  const Cell = (v) => v === true ? <span className="cell-tick">✓</span> : v === false ? <span className="cell-no">—</span> : <span style={{ fontWeight: 700 }}>{v}</span>;
+  return (
+    <div className="pricing-table">
+      <div className="row header">
+        <div><div className="tier-tag" style={{ color: "var(--fg-dim)" }}>Compare</div></div>
+        {TIERS.map((t) => (
+          <div key={t.id} className={t.featured ? "featured-col" : ""}>
+            <div className="tier-tag" style={{ color: t.featured ? "var(--accent)" : "var(--fg-dim)" }}>{t.tag}</div>
+            <div className="tier-name">{t.name}</div>
+            <div className="tier-price" style={{ justifyContent: "center" }}><span className="amount">${t.price}</span><span className="per">/wk</span></div>
+          </div>
+        ))}
+      </div>
+      {rows.map((r, i) => (
+        <div key={i} className="row feat-row">
+          <div className="label">{r.label}</div>
+          {r.cells.map((c, j) => <div key={j} className={TIERS[j].featured ? "featured-col" : ""}>{Cell(c)}</div>)}
+        </div>
+      ))}
+      <div className="row footer-row">
+        <div></div>
+        {TIERS.map((t) => (
+          <div key={t.id} className={t.featured ? "featured-col" : ""}>
+            <button className={"btn " + (t.featured ? "btn-primary" : "btn-ghost")} onClick={onBook}>{t.cta}</button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Services({ layout, setLayout, onBook }) {
+  return (
+    <section id="services" className="section services">
+      <div className="container">
+        <div className="tag-row reveal"><span>[ 03 ] Coaching tiers</span><span>Weekly · AUD</span></div>
+        <div className="section-head">
+          <h2 className="display section-title reveal">Pick the level that fits your <span className="accent">week.</span></h2>
+          <div className="reveal" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 12, maxWidth: 420 }}>
+            <p style={{ color: "var(--fg-dim)", fontSize: 16, lineHeight: 1.6, margin: 0 }}>Every tier runs on the same standards. The difference is how much coach is in the room with you.</p>
+            <div className="layout-toggle">
+              <button className={layout === "cards" ? "active" : ""} onClick={() => setLayout("cards")} data-layout="cards">Cards</button>
+              <button className={layout === "table" ? "active" : ""} onClick={() => setLayout("table")} data-layout="table">Compare</button>
+            </div>
+          </div>
+        </div>
+        {layout === "cards" ? (
+          <div className="pricing-grid reveal-stagger">
+            {TIERS.map((t, i) => <div key={t.id} style={{ "--i": i }}><TierCard tier={t} onBook={onBook} /></div>)}
+          </div>
+        ) : (
+          <div className="reveal">
+            <PricingTable onBook={onBook} />
+            <div className="pricing-grid" style={{ marginTop: 16 }}>
+              {TIERS.map((t) => <div key={t.id}><TierCard tier={t} onBook={onBook} /></div>)}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+/* ── Transformations ── */
+const TRANSFORMS = [
+  { id: "t1", who: "Client · Fat loss",      what: "12 weeks of online coaching",   num: "−14 kg" },
+  { id: "t2", who: "Client · Football",      what: "Pre-season build, S&C focus",   num: "+6 kg lean" },
+  { id: "t3", who: "Client · Hyrox",         what: "Race prep, 10 weeks",           num: "PB · 1:08" },
+  { id: "t4", who: "Client · Muscle gain",   what: "6 month premium block",         num: "+8 kg" },
+  { id: "t5", who: "Client · Fat loss",      what: "Online coaching, busy schedule", num: "−9 kg" },
+  { id: "t6", who: "Client · Off-season",    what: "6 week off-season challenge",   num: "Form for preseason" },
+];
+
+function Transformations() {
+  return (
+    <section id="transformations" className="section transformations">
+      <div className="container">
+        <div className="tag-row reveal"><span>[ 04 ] Transformations</span><span>Real clients · Drop photos here</span></div>
+        <div className="section-head">
+          <h2 className="display section-title reveal">12 weeks done <span className="accent">properly.</span></h2>
+          <p className="reveal" style={{ color: "var(--fg-dim)", fontSize: 16, lineHeight: 1.6, margin: 0, maxWidth: 420 }}>Before and after photos from clients on online and premium coaching.</p>
+        </div>
+        <div className="transformation-grid reveal-stagger">
+          {TRANSFORMS.map((t, i) => (
+            <article key={t.id} className="t-card" style={{ "--i": i }}>
+              <div className="ba">
+                <div className="slot">
+                  <span className="corner-tag">Before</span>
+                  <div className="slot-ph">Before photo</div>
+                </div>
+                <div className="slot">
+                  <span className="corner-tag" style={{ background: "rgba(255,180,0,0.85)", color: "var(--accent-ink)" }}>After</span>
+                  <div className="slot-ph">After photo</div>
+                </div>
+              </div>
+              <div className="meta">
+                <div className="who">{t.who}</div>
+                <div className="what">{t.what}</div>
+                <div className="num">{t.num}</div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Video wins ── */
+const VIDEOS = [
+  { id: "v1", who: "Nathan Smith",    what: "Fat loss · 12 weeks" },
+  { id: "v2", who: "Daniel Robinson", what: "Football · Off-season" },
+  { id: "v3", who: "Ewan McAllister", what: "Diet structure" },
+  { id: "v4", who: "Liam McGurk",     what: "Long-term client" },
+  { id: "v5", who: "Client · Hyrox",  what: "Race prep" },
+];
+
+function VideoWins() {
+  return (
+    <section id="video-wins" className="section">
+      <div className="container">
+        <div className="tag-row reveal"><span>[ 05 ] Video wins</span><span>9:16 · Drop client clips</span></div>
+        <div className="section-head">
+          <h2 className="display section-title reveal">Hear it <span className="accent">from them.</span></h2>
+          <p className="reveal" style={{ color: "var(--fg-dim)", fontSize: 16, lineHeight: 1.6, margin: 0, maxWidth: 420 }}>Short video testimonials from MXF clients. Vertical format, straight to Instagram.</p>
+        </div>
+        <div className="video-row reveal">
+          <div className="video-track">
+            {VIDEOS.map((v) => (
+              <div key={v.id} className="v-card">
+                <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center" }}>
+                  <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 9, letterSpacing: "0.18em", color: "rgba(244,241,236,0.2)", textTransform: "uppercase" }}>Video thumbnail · 9:16</div>
+                </div>
+                <span className="v-play" aria-hidden="true"></span>
+                <div className="v-meta"><span className="who">{v.who}</span><span className="what">{v.what}</span></div>
+              </div>
+            ))}
+          </div>
+          <div className="video-row-foot">Swipe →</div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Testimonials ── */
+const TESTIMONIALS = [
+  { name: "Nathan Smith",    tag: "Fitness · fat loss",    quote: "Sean has created an amazing fitness workshop at MXF. He helped me reach my goals in a shorter period of time than I thought possible. Highly recommend him to anyone looking to achieve their goals." },
+  { name: "Daniel Robinson", tag: "Football · off-season",  quote: "Highly recommend Sean. I did his 6 week off-season challenge and it had me in great form going into the football preseason. I also got the love of going to the gym and setting fitness standards for myself." },
+  { name: "Ewan McAllister", tag: "Structure · nutrition",  quote: "Have had many sessions with Sean and feel he really helped me hit my fitness goals and structure my diet. Would definitely recommend Sean to anyone looking to improve their fitness and training." },
+  { name: "Liam McGurk",     tag: "Long-term client",      quote: "I've been a client of Sean's at MXF for a few years now, and I couldn't recommend him enough. His knowledge, approach, and consistent support have made all the difference in my fitness journey. Whether it's pushing through tough workouts or guidance on recovery and nutrition, Sean's advice has always been spot on." },
+];
+
+function TestimonialCard({ t }) {
+  return (
+    <div className="testimonial">
+      <div className="stars">★★★★★</div>
+      <p className="quote">{t.quote}</p>
+      <div className="author">
+        <div className="avatar">{t.name.split(" ").map((n) => n[0]).join("")}</div>
+        <div><div className="author-name">{t.name}</div><div className="author-tag">{t.tag}</div></div>
+      </div>
+    </div>
+  );
+}
+
+function Testimonials({ variant }) {
+  return (
+    <section id="testimonials" className="section testimonials">
+      <div className="container">
+        <div className="tag-row reveal"><span>[ 06 ] Client words</span><span>Verified · all real</span></div>
+        <div className="section-head">
+          <h2 className="display section-title reveal">What clients <span className="accent">actually say.</span></h2>
+          <div className="eyebrow reveal">4 athletes · same standards</div>
+        </div>
+        {variant === "wall" ? (
+          <div className="testimonial-wall reveal-stagger">
+            <div className="lead" style={{ "--i": 0 }}>
+              "Sean's helped me reach goals I honestly didn't think were <span className="accent">possible.</span>"
+              <span className="who">Liam McGurk · long-term client</span>
+            </div>
+            {TESTIMONIALS.slice(0, 3).map((t, i) => <div key={t.name} style={{ "--i": i + 1 }}><TestimonialCard t={t} /></div>)}
+          </div>
+        ) : variant === "slider" ? (
+          <div className="testimonial-slider reveal">
+            <div className="track">{TESTIMONIALS.map((t) => <TestimonialCard key={t.name} t={t} />)}</div>
+            <div className="h-mono" style={{ marginTop: 14, color: "var(--fg-mute)" }}>Swipe →</div>
+          </div>
+        ) : (
+          <div className="testimonial-grid reveal-stagger">
+            {TESTIMONIALS.map((t, i) => <div key={t.name} style={{ "--i": i }}><TestimonialCard t={t} /></div>)}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+/* ── FAQ ── */
+const FAQS = [
+  { q: "How does the application process work?", a: "Fill out a short application. Name, age, goal, current training, biggest struggle, timeline, budget. I'll review it and reach out within 24 hours to set up a 15 minute discovery call. On the call we cover your situation, your goal, what's blocking you, and which coaching package fits. No surprise pricing." },
+  { q: "Group, online, or premium. Which is right for me?", a: "Group at $50/wk is best if you want a structured session with people training next to you. Online at $125/wk is for personalised programming, nutrition, weekly check-ins through the MXF Athlete app. Premium at $160/wk adds 2 private PT sessions every week. The right one depends on your goal and how much coach you want in the room." },
+  { q: "Do I need to be an athlete?", a: "No. I coach football athletes, Hyrox competitors, lifestyle clients, fat loss and muscle gain clients. The standards are the same. The program is built around your goal." },
+  { q: "Where is MXF based?", a: "Clarkson, Perth, Western Australia. In-person training runs out of the Clarkson facility. Online coaching goes anywhere in the world through the MXF Athlete app." },
+  { q: "What's actually in the MXF Athlete app?", a: "Your training program, workout tracking, nutrition and habit tracking, weekly check-ins with me, progress photos and direct messaging. Everything in one place so you always know if you're on track." },
+  { q: "Do I have to sign a long contract?", a: "No long lock-ins. Coaching runs week to week. Real results take 12 weeks at minimum, so that's what we plan against on the discovery call." },
+  { q: "What happens after I book the call?", a: "You'll get a confirmation, then a 15 minute call with me. Current situation, goal, what's blocking it, package recommendation. If it's a fit you can start that week. If it's not, I'll point you somewhere useful." },
+];
+
+function FAQ() {
+  const [open, setOpen] = React.useState(0);
+  return (
+    <section id="faq" className="section">
+      <div className="container">
+        <div className="tag-row reveal"><span>[ 07 ] Quick Q&A</span><span>Honest answers</span></div>
+        <div className="section-head">
+          <h2 className="display section-title reveal">Common <span className="accent">questions.</span></h2>
+          <div className="eyebrow reveal">Tap to expand</div>
+        </div>
+        <div className="faq-list reveal">
+          {FAQS.map((f, i) => (
+            <div key={i} className={"faq-item" + (open === i ? " open" : "")}>
+              <button className="faq-q" onClick={() => setOpen(open === i ? -1 : i)} aria-expanded={open === i}>
+                <span>{f.q}</span>
+                <span className="plus" aria-hidden="true"></span>
+              </button>
+              <div className="faq-a"><p>{f.a}</p></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── CTA Banner ── */
+function CtaBanner({ onBook }) {
+  return (
+    <section className="cta-banner" id="book">
+      <div className="corner tl">[ Apply · 2 min ]</div>
+      <div className="corner tr">Perth WA</div>
+      <div className="corner bl">Reply · within 24h</div>
+      <div className="corner br">MXF · 2026</div>
+      <h2>Ready to get to work?</h2>
+      <p>15 minute discovery call. We'll talk through your goal, what's blocking it, and the right package for you.</p>
+      <button className="btn btn-primary" onClick={onBook}>Book your discovery call <span className="arr">→</span></button>
+    </section>
+  );
+}
+
+/* ── Footer ── */
+function Footer() {
+  return (
+    <footer className="footer">
+      <div className="footer-grid">
+        <div>
+          <span className="wordmark">mxf</span>
+          <p className="footer-tag">Football performance, body transformations, online coaching. Out of Clarkson, Perth WA.</p>
+        </div>
+        <div className="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="https://instagram.com/mxf.athlete" target="_blank" rel="noopener">@mxf.athlete</a></li>
+            <li><a href="mailto:mxf.athlete@gmail.com">mxf.athlete@gmail.com</a></li>
+            <li><span style={{ color: "var(--fg-dim)" }}>Clarkson, Perth WA</span></li>
+          </ul>
+        </div>
+        <div className="footer-col">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="#about">About Sean</a></li>
+            <li><a href="#services">Coaching tiers</a></li>
+            <li><a href="#transformations">Transformations</a></li>
+            <li><a href="#testimonials">Client words</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#book">Apply now</a></li>
+          </ul>
+        </div>
+      </div>
+      <div className="footer-bottom">
+        <div>© MXF Athlete · 2026</div>
+        <div>Coaching from Clarkson, Perth WA</div>
+      </div>
+    </footer>
+  );
+}
+
+/* ── App ── */
+const TWEAK_DEFAULTS = { accent: "#FFB400", heroVariant: 0, pricingLayout: "cards", testimonialLayout: "grid" };
+
+function useScrollProgress() {
+  const [pct, setPct] = React.useState(0);
+  const [scrolled, setScrolled] = React.useState(false);
+  React.useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement;
+      const s = h.scrollTop;
+      const total = h.scrollHeight - h.clientHeight;
+      setPct(total > 0 ? (s / total) * 100 : 0);
+      setScrolled(s > 24);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return { pct, scrolled };
+}
+
+function useReveal() {
+  React.useEffect(() => {
+    const els = document.querySelectorAll(".reveal, .reveal-stagger");
+    const io = new IntersectionObserver(
+      (entries) => { entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }); },
+      { threshold: 0.14, rootMargin: "0px 0px -8% 0px" }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  });
+}
+
+function useScrollSpy(ids) {
+  const [active, setActive] = React.useState(ids[0]);
+  React.useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => { entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); }); },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+    );
+    ids.forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+    return () => io.disconnect();
+  }, []);
+  return active;
+}
+
+function TopNav({ scrolled, onBook }) {
+  return (
+    <nav className={"topnav" + (scrolled ? " scrolled" : "")}>
+      <a href="#hero" className="wordmark" aria-label="MXF — home">mxf</a>
+      <div className="links">
+        <a href="#about">About</a>
+        <a href="#services">Coaching</a>
+        <a href="#transformations">Transforms</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <button className="nav-cta" onClick={onBook}>Book now ↗</button>
+    </nav>
+  );
+}
+
+const SPY_ITEMS = [
+  { id: "hero", label: "Top" }, { id: "about", label: "About" }, { id: "services", label: "Coaching" },
+  { id: "transformations", label: "Transforms" }, { id: "video-wins", label: "Videos" },
+  { id: "testimonials", label: "Words" }, { id: "faq", label: "FAQ" }, { id: "book", label: "Book" },
+];
+
+function ScrollSpy({ active }) {
+  return (
+    <nav className="scroll-spy" aria-label="Section navigation">
+      {SPY_ITEMS.map((it) => (
+        <a key={it.id} href={"#" + it.id} className={active === it.id ? "active" : ""}>
+          <span>{it.label}</span>
+        </a>
+      ))}
+    </nav>
+  );
+}
+
+function FloatingCTA({ visible, onBook }) {
+  return (
+    <button className={"floating-cta" + (visible ? " visible" : "")} onClick={onBook} aria-label="Book a discovery call">
+      <span className="dot"></span>Book now<span className="arr">→</span>
+    </button>
+  );
+}
+
+function App() {
+  const [loading] = React.useState(false);
+  const [showFloat, setShowFloat] = React.useState(false);
+  const [t, setT] = React.useState(TWEAK_DEFAULTS);
+  const setTweak = (k, v) => setT((prev) => ({ ...prev, [k]: v }));
+  const { pct, scrolled } = useScrollProgress();
+  useReveal();
+  const active = useScrollSpy(SPY_ITEMS.map((i) => i.id));
+
+  React.useEffect(() => {
+    document.documentElement.style.setProperty("--accent", t.accent || "#C5FF00");
+  }, [t.accent]);
+
+  React.useEffect(() => {
+    const onScroll = () => setShowFloat(window.scrollY > window.innerHeight * 0.4);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const onBook = () => window.open("https://docs.google.com/forms/d/e/1FAIpQLSet0WsRdo6p07G5ZGjObhDNVnCgDx5nPmeNLh0hlmyc7vr5TA/viewform?usp=publish-editor", "_blank", "noopener");
+  const heroCopy = HERO_VARIANTS[t.heroVariant || 0];
+
+  return (
+    <React.Fragment>
+      <div className="scroll-progress" style={{ width: pct + "%" }} />
+      <TopNav scrolled={scrolled} onBook={onBook} />
+      <ScrollSpy active={active} />
+      <Hero heroCopy={heroCopy} onBook={onBook} />
+      <Marquee />
+      <About />
+      <Services layout={t.pricingLayout} setLayout={(v) => setTweak("pricingLayout", v)} onBook={onBook} />
+      <Transformations />
+      <VideoWins />
+      <Testimonials variant={t.testimonialLayout} />
+      <FAQ />
+      <CtaBanner onBook={onBook} />
+      <Footer />
+      <FloatingCTA visible={showFloat && !loading} onBook={onBook} />
+    </React.Fragment>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+
+  </script>
+</body>
+</html>
