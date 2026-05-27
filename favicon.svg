@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="4" fill="#0a0a0a"/>
+  <text font-family="Arial Black,Helvetica Neue,Helvetica,Arial,sans-serif" font-weight="900" font-size="14" fill="#f4f1ec">
+    <tspan x="2" y="22" letter-spacing="-0.5">mxf</tspan><tspan fill="#FFB400" dx="-0.5">.</tspan>
+  </text>
+</svg>
