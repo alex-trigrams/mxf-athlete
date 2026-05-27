@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0a0a0a" />
-  <title>MXF Athlete — Coaching by Sean McManus · Clarkson, Perth WA</title>
+  <title>mxf</title>
   <meta name="description" content="MXF helps athletes and everyday people build stronger bodies, improve performance, lose fat and gain muscle through personalised coaching." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -937,58 +937,6 @@ function VideoWins() {
   );
 }
 
-/* ── Testimonials ── */
-const TESTIMONIALS = [
-  { name: "Nathan Smith",    tag: "Fitness · fat loss",    quote: "Sean has created an amazing fitness workshop at MXF. He helped me reach my goals in a shorter period of time than I thought possible. Highly recommend him to anyone looking to achieve their goals." },
-  { name: "Daniel Robinson", tag: "Football · off-season",  quote: "Highly recommend Sean. I did his 6 week off-season challenge and it had me in great form going into the football preseason. I also got the love of going to the gym and setting fitness standards for myself." },
-  { name: "Ewan McAllister", tag: "Structure · nutrition",  quote: "Have had many sessions with Sean and feel he really helped me hit my fitness goals and structure my diet. Would definitely recommend Sean to anyone looking to improve their fitness and training." },
-  { name: "Liam McGurk",     tag: "Long-term client",      quote: "I've been a client of Sean's at MXF for a few years now, and I couldn't recommend him enough. His knowledge, approach, and consistent support have made all the difference in my fitness journey. Whether it's pushing through tough workouts or guidance on recovery and nutrition, Sean's advice has always been spot on." },
-];
-
-function TestimonialCard({ t }) {
-  return (
-    <div className="testimonial">
-      <div className="stars">★★★★★</div>
-      <p className="quote">{t.quote}</p>
-      <div className="author">
-        <div className="avatar">{t.name.split(" ").map((n) => n[0]).join("")}</div>
-        <div><div className="author-name">{t.name}</div><div className="author-tag">{t.tag}</div></div>
-      </div>
-    </div>
-  );
-}
-
-function Testimonials({ variant }) {
-  return (
-    <section id="testimonials" className="section testimonials">
-      <div className="container">
-        <div className="tag-row reveal"><span>[ 06 ] Client words</span><span>Verified · all real</span></div>
-        <div className="section-head">
-          <h2 className="display section-title reveal">What clients <span className="accent">actually say.</span></h2>
-          <div className="eyebrow reveal">4 athletes · same standards</div>
-        </div>
-        {variant === "wall" ? (
-          <div className="testimonial-wall reveal-stagger">
-            <div className="lead" style={{ "--i": 0 }}>
-              "Sean's helped me reach goals I honestly didn't think were <span className="accent">possible.</span>"
-              <span className="who">Liam McGurk · long-term client</span>
-            </div>
-            {TESTIMONIALS.slice(0, 3).map((t, i) => <div key={t.name} style={{ "--i": i + 1 }}><TestimonialCard t={t} /></div>)}
-          </div>
-        ) : variant === "slider" ? (
-          <div className="testimonial-slider reveal">
-            <div className="track">{TESTIMONIALS.map((t) => <TestimonialCard key={t.name} t={t} />)}</div>
-            <div className="h-mono" style={{ marginTop: 14, color: "var(--fg-mute)" }}>Swipe →</div>
-          </div>
-        ) : (
-          <div className="testimonial-grid reveal-stagger">
-            {TESTIMONIALS.map((t, i) => <div key={t.name} style={{ "--i": i }}><TestimonialCard t={t} /></div>)}
-          </div>
-        )}
-      </div>
-    </section>
-  );
-}
 
 /* ── FAQ ── */
 const FAQS = [
@@ -1065,7 +1013,6 @@ function Footer() {
             <li><a href="#about">About Sean</a></li>
             <li><a href="#services">Coaching tiers</a></li>
             <li><a href="#transformations">Transformations</a></li>
-            <li><a href="#testimonials">Client words</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#book">Apply now</a></li>
           </ul>
@@ -1143,7 +1090,7 @@ function TopNav({ scrolled, onBook }) {
 const SPY_ITEMS = [
   { id: "hero", label: "Top" }, { id: "about", label: "About" }, { id: "services", label: "Coaching" },
   { id: "transformations", label: "Transforms" }, { id: "video-wins", label: "Videos" },
-  { id: "testimonials", label: "Words" }, { id: "faq", label: "FAQ" }, { id: "book", label: "Book" },
+  { id: "faq", label: "FAQ" }, { id: "book", label: "Book" },
 ];
 
 function ScrollSpy({ active }) {
@@ -1200,7 +1147,6 @@ function App() {
       <Services layout={t.pricingLayout} setLayout={(v) => setTweak("pricingLayout", v)} onBook={onBook} />
       <Transformations />
       <VideoWins />
-      <Testimonials variant={t.testimonialLayout} />
       <FAQ />
       <CtaBanner onBook={onBook} />
       <Footer />
