@@ -105,6 +105,7 @@ section { position: relative; }
   display: flex; align-items: center; justify-content: space-between; padding: 14px 22px;
   transition: background 300ms var(--ease), backdrop-filter 300ms var(--ease), border-color 300ms var(--ease);
   border-bottom: 1px solid transparent;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.55);
 }
 .topnav.scrolled {
   background: rgba(10,10,10,0.72);
@@ -155,8 +156,13 @@ section { position: relative; }
 .hero-bg { position: absolute; inset: 0; z-index: 0; }
 .hero-bg::after {
   content: ""; position: absolute; inset: 0;
-  background: radial-gradient(70% 50% at 20% 100%, rgba(255,180,0,0.10), transparent 60%),
-    linear-gradient(180deg, rgba(10,10,10,0.10) 0%, rgba(10,10,10,0.85) 70%, var(--bg) 100%);
+  background:
+    radial-gradient(70% 50% at 20% 100%, rgba(255,180,0,0.10), transparent 60%),
+    linear-gradient(180deg,
+      rgba(10,10,10,0.72) 0%,
+      rgba(10,10,10,0.30) 35%,
+      rgba(10,10,10,0.72) 65%,
+      var(--bg) 100%);
   z-index: 2;
 }
 .hero-video-slot {
@@ -192,7 +198,8 @@ section { position: relative; }
 .hero-meta {
   display: flex; flex-direction: column; gap: 6px;
   font-family: "JetBrains Mono", monospace; font-size: 11px;
-  letter-spacing: 0.16em; color: var(--fg-dim); text-transform: uppercase;
+  letter-spacing: 0.16em; color: var(--fg); text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.70);
 }
 .hero-meta .blink {
   width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
@@ -202,7 +209,7 @@ section { position: relative; }
   0%, 60% { opacity: 1; transform: scale(1); }
   80%, 100% { opacity: 0.3; transform: scale(0.85); }
 }
-.hero-title { font-size: clamp(44px, 8.4vw, 116px); max-width: 18ch; }
+.hero-title { font-size: clamp(44px, 8.4vw, 116px); max-width: 18ch; text-shadow: 0 2px 16px rgba(0,0,0,0.60); }
 .hero-title .row { display: block; overflow: hidden; }
 .hero-title .row > span {
   display: inline-block; transform: translateY(110%);
@@ -408,10 +415,9 @@ section { position: relative; }
 @media (min-width: 1080px) { .transformation-grid { grid-template-columns: repeat(3, 1fr); } }
 .t-card { background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; display: flex; flex-direction: column; transition: transform 360ms var(--ease), border-color 360ms var(--ease); }
 .t-card:hover { transform: translateY(-3px); border-color: var(--line-strong); }
-.t-card .ba { display: grid; grid-template-columns: 1fr 1fr; position: relative; aspect-ratio: 4 / 3; }
-.t-card .ba::after { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: var(--line-strong); }
-.t-card .ba .slot { position: relative; background-color: #161614; background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 12px); display: grid; place-items: center; overflow: hidden; }
-.t-card .ba .corner-tag { position: absolute; top: 12px; left: 12px; font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--fg-dim); text-transform: uppercase; background: rgba(10,10,10,0.65); padding: 4px 8px; border-radius: var(--r-pill); z-index: 1; }
+.t-card .ba { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: #0a0a0a; }
+.t-card .ba img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 480ms var(--ease); }
+.t-card:hover .ba img { transform: scale(1.03); }
 .t-card .meta { padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; }
 .t-card .meta .who { font-weight: 600; font-size: 15px; }
 .t-card .meta .what { color: var(--fg-dim); font-size: 14px; line-height: 1.5; }
@@ -597,11 +603,9 @@ function Hero({ heroCopy, onBook }) {
     <section id="hero" className="hero">
       <div className="hero-bg">
         <div className="hero-video-slot">
-          <div className="video-placeholder">
-            <span className="play"></span>
-            <span>hero video · 1920×1080 · loop</span>
-            <span style={{ opacity: 0.6 }}>training b-roll, slow motion</span>
-          </div>
+          <video autoPlay muted loop playsInline>
+            <source src="videos/hero.mp4" type="video/mp4" />
+          </video>
         </div>
         <div className="hero-grain"></div>
       </div>
@@ -609,11 +613,11 @@ function Hero({ heroCopy, onBook }) {
         <div className="hero-top">
           <div className="hero-meta">
             <div><span className="blink"></span>Coaching now · Clarkson · Perth WA</div>
-            <div style={{ color: "var(--fg-mute)" }}>Est. 2018 · @mxf.athlete</div>
+            <div style={{ color: "var(--fg-dim)" }}>Est. 2018 · @mxf.athlete</div>
           </div>
           <div className="hero-meta" style={{ textAlign: "right" }}>
             <div>1:1 · Online · Group</div>
-            <div style={{ color: "var(--fg-mute)" }}>Athletes and everyday clients</div>
+            <div style={{ color: "var(--fg-dim)" }}>Athletes and everyday clients</div>
           </div>
         </div>
         <h1 className="display hero-title">
@@ -668,11 +672,10 @@ function Marquee() {
 
 /* ── About carousel ── */
 const ABOUT_SLIDES = [
-  { id: "portrait",   what: "Coach portrait",       yr: "Now · MXF",         placeholder: "Drop a portrait of Sean · 4:5" },
-  { id: "pro-action", what: "In play · Scotland",   yr: "Pro · 2008–2019",   placeholder: "Match action · pro era" },
-  { id: "kit",        what: "Team kit",             yr: "Pro era",           placeholder: "Kit / squad photo" },
-  { id: "wa",         what: "Western Australia",    yr: "Semi-pro · 2019+",  placeholder: "Representing WA" },
-  { id: "coaching",   what: "On the floor · MXF",  yr: "Clarkson, Perth",   placeholder: "Coaching session" },
+  { id: "portrait",  src: "images/bio/sean.jpg",             what: "Coach portrait",    yr: "Now · MXF",        placeholder: "Sean McManus · MXF Athlete" },
+  { id: "wa-action", src: "images/bio/professional.jpg",     what: "In play · WA",      yr: "Semi-pro · 2019+", placeholder: "Match action · WA" },
+  { id: "kit",       src: "images/bio/professional2.jpg",    what: "McManus #7",         yr: "Semi-pro era",     placeholder: "Kit · WA" },
+  { id: "coaching",  src: "images/bio/outdoor-training.jpg", what: "MXF training day",  yr: "Clarkson, Perth",  placeholder: "Coaching session" },
 ];
 
 function AboutCarousel() {
@@ -690,7 +693,10 @@ function AboutCarousel() {
       <span className="ac-badge">Sean McManus</span>
       {ABOUT_SLIDES.map((s, i) => (
         <div key={s.id} className={"slide" + (i === idx ? " active" : "")} aria-hidden={i !== idx}>
-          <ImgSlot placeholder={s.placeholder} style={{ width: "100%", height: "100%" }} />
+          {s.src
+            ? <img src={s.src} alt={s.placeholder} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", display: "block" }} />
+            : <ImgSlot placeholder={s.placeholder} style={{ width: "100%", height: "100%" }} />
+          }
         </div>
       ))}
       <div className="ac-dots">
@@ -858,19 +864,19 @@ function Services({ layout, setLayout, onBook }) {
 
 /* ── Transformations ── */
 const TRANSFORMS = [
-  { id: "t1", who: "Client · Fat loss",      what: "12 weeks of online coaching",   num: "−14 kg" },
-  { id: "t2", who: "Client · Football",      what: "Pre-season build, S&C focus",   num: "+6 kg lean" },
-  { id: "t3", who: "Client · Hyrox",         what: "Race prep, 10 weeks",           num: "PB · 1:08" },
-  { id: "t4", who: "Client · Muscle gain",   what: "6 month premium block",         num: "+8 kg" },
-  { id: "t5", who: "Client · Fat loss",      what: "Online coaching, busy schedule", num: "−9 kg" },
-  { id: "t6", who: "Client · Off-season",    what: "6 week off-season challenge",   num: "Form for preseason" },
+  { id: "t1", src: "images/testimonials/t1.jpg", who: "Athlete + FIFO",       what: "12 Weeks",                                                  num: "−12 kg fat loss" },
+  { id: "t2", src: "images/testimonials/t2.jpg", who: "Athlete · Footballer", what: "12 Weeks",                                                  num: "Muscle gain" },
+  { id: "t3", src: "images/testimonials/t3.jpg", who: "Athlete · Footballer", what: "12 Weeks",                                                  num: "Muscle gain" },
+  { id: "t4", src: "images/testimonials/t4.jpg", who: "Fat loss",             what: "10km · ½ Marathon ×2 · Marathon · Hyrox · 75 Hard ×2",      num: "−26 kg" },
+  { id: "t5", src: "images/testimonials/t5.jpg", who: "Fat loss",             what: "10km · ½ Marathon ×3 · Triathlon · Assault Course",          num: "−23 kg" },
+  { id: "t6", src: "images/testimonials/t6.jpg", who: "Fat loss",             what: "10km · ½ Marathon · 75 Hard · Multiple Phases",              num: "−30 kg+" },
 ];
 
 function Transformations() {
   return (
     <section id="transformations" className="section transformations">
       <div className="container">
-        <div className="tag-row reveal"><span>[ 04 ] Transformations</span><span>Real clients · Drop photos here</span></div>
+        <div className="tag-row reveal"><span>[ 04 ] Transformations</span><span>Real clients · Real results</span></div>
         <div className="section-head">
           <h2 className="display section-title reveal">12 weeks done <span className="accent">properly.</span></h2>
           <p className="reveal" style={{ color: "var(--fg-dim)", fontSize: 16, lineHeight: 1.6, margin: 0, maxWidth: 420 }}>Before and after photos from clients on online and premium coaching.</p>
@@ -879,14 +885,7 @@ function Transformations() {
           {TRANSFORMS.map((t, i) => (
             <article key={t.id} className="t-card" style={{ "--i": i }}>
               <div className="ba">
-                <div className="slot">
-                  <span className="corner-tag">Before</span>
-                  <div className="slot-ph">Before photo</div>
-                </div>
-                <div className="slot">
-                  <span className="corner-tag" style={{ background: "rgba(255,180,0,0.85)", color: "var(--accent-ink)" }}>After</span>
-                  <div className="slot-ph">After photo</div>
-                </div>
+                <img src={t.src} alt={t.who + " · " + t.num} loading="lazy" />
               </div>
               <div className="meta">
                 <div className="who">{t.who}</div>
@@ -1089,8 +1088,8 @@ function TopNav({ scrolled, onBook }) {
 }
 
 const SPY_ITEMS = [
-  { id: "hero", label: "Top" }, { id: "about", label: "About" }, { id: "services", label: "Coaching" },
-  { id: "transformations", label: "Transforms" }, { id: "video-wins", label: "Videos" },
+  { id: "hero", label: "Top" }, { id: "about", label: "About" }, { id: "transformations", label: "Transforms" },
+  { id: "services", label: "Coaching" },
   { id: "faq", label: "FAQ" }, { id: "book", label: "Book" },
 ];
 
@@ -1145,9 +1144,9 @@ function App() {
       <Hero heroCopy={heroCopy} onBook={onBook} />
       <Marquee />
       <About />
-      <Services layout={t.pricingLayout} setLayout={(v) => setTweak("pricingLayout", v)} onBook={onBook} />
       <Transformations />
-      <VideoWins />
+      <Services layout={t.pricingLayout} setLayout={(v) => setTweak("pricingLayout", v)} onBook={onBook} />
+      {/* <VideoWins /> */}
       <FAQ />
       <CtaBanner onBook={onBook} />
       <Footer />
