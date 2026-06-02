@@ -1,7 +1,4 @@
-*
-!index.html
-!favicon.svg
-!images/
-!images/**
-!videos/
-!videos/**
+images/raw/
+videos/raw/
+compress.sh
+compress-video.sh
